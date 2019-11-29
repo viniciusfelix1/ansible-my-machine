@@ -21,4 +21,4 @@
     - language-terraform
     - platformio-ide-terminal
     - remote-editor
-    #- markdown-preview-enhanced
+    - markdown-preview-enhanced

@@ -13,7 +13,7 @@
     state: present
   loop:
     - "ppa:ansible/ansible"
-    #- "ppa:gnome-terminator"
+    - "ppa:libratbag-piper/piper-libratbag-git"
     - "deb https://download.docker.com/linux/ubuntu xenial stable"
     - "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
 
@@ -38,23 +38,27 @@
     - python-pip
     - python3-pip
     - terminator
-    - docker-ce
+      #- docker-ce
     - libgnome-keyring-common
     - hunspell-pt-br
+    - piper
+    - virtualbox-6.0
+    - gcc
+    - shutter
 
 - name: Download DEB packages
   get_url:
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
   loop:
-    - { url: 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb', dest: '/opt/' }
+          #    - { url: 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb', dest: '/opt/' }
     - { url: 'https://github.com/meetfranz/franz/releases/download/v5.1.0/franz_5.1.0_amd64.deb', dest: '/opt/' }
 
 - name: Install a .deb package
   apt:
     deb: /opt/{{ item }}
   loop:
-    - google-chrome-stable_current_amd64.deb
+          #    - google-chrome-stable_current_amd64.deb
     - franz_5.1.0_amd64.deb
 
 - name: install pip modules
