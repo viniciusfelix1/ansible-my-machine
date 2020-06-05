@@ -1,0 +1,79 @@
+---
+- name: add key
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  loop:
+    - https://download.docker.com/linux/ubuntu/gpg
+    - https://packagecloud.io/AtomEditor/atom/gpgkey
+
+- name: add repository
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop:
+    - "ppa:libratbag-piper/piper-libratbag-git"
+    - "ppa:linuxuprising/shutter"
+    - "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install a list of packages
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - apt-transport-https
+    - ca-certificates
+    - software-properties-common
+    - atom
+    - python
+    - python3
+    - cowsay
+    - htop
+    - ansible
+    #- python-pip
+    - python3-pip
+    - terminator
+    - gnome-keyring
+    - hunspell-pt-br
+    - piper
+    - gcc
+    - shutter
+    - zsh
+    - powerline
+    - fonts-powerline
+    - nextcloud-desktop
+    - nautilus-nextcloud
+
+- name: Download DEB packages
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { url: 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb', dest: '/opt/' }
+    - { url: 'https://github.com/meetfranz/franz/releases/download/v5.1.0/franz_5.1.0_amd64.deb', dest: '/opt/' }
+    - { url: 'https://download.virtualbox.org/virtualbox/6.1.8/virtualbox-6.1_6.1.8-137981~Ubuntu~eoan_amd64.deb', dest: '/opt/'}
+    - { url: 'https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb', dest: '/opt/'}
+    - { url: 'https://download.anydesk.com/linux/anydesk_5.5.6-1_amd64.deb?_ga=2.172299430.405419324.1591369071-511324669.1591369071', dest: '/opt/'}
+
+- name: Install a .deb package
+  apt:
+    deb: /opt/{{ item }}
+  loop:
+    - google-chrome-stable_current_amd64.deb
+    - franz_5.1.0_amd64.deb
+    - virtualbox-6.1_6.1.8-137981~Ubuntu~eoan_amd64.deb
+    - vagrant_2.2.9_x86_64.deb
+
+- name: install pip modules
+  pip:
+    name: "{{ item }}"
+  loop:
+    - docker
+    - boto
+    - boto3
+    - botocore
+    - ovirt-engine-sdk-python

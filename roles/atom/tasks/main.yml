@@ -19,6 +19,4 @@
     - language-jenkinsfile
     - language-nginx
     - language-terraform
-    - platformio-ide-terminal
     - remote-editor
-    - markdown-preview-enhanced
