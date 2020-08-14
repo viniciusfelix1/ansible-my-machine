@@ -1,4 +1,4 @@
-- name: Install Docker-Volume-Netshare
+- name: Configura PC
   hosts: localhost
   gather_facts: true
   become: yes
