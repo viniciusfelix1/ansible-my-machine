@@ -1,5 +1,11 @@
 # ansible-my-machine
 
+## ansible.sh
+
+This shell script will install ansible and run the playbook on localhost
+
+## playbook.yml
+
 This playbook will install all the applications that i need for my work enviroment.
 
 1. That includes:
@@ -9,15 +15,21 @@ This playbook will install all the applications that i need for my work envirome
     - atom
     - python
     - python3
-    - cowsay
     - htop
     - ansible
-    - python-pip
     - python3-pip
     - terminator
-    - docker-ce
-    - google-chrome
-    - franz
+    - gnome-keyring
+    - hunspell-pt-br
+    - piper
+    - gcc
+    - shutter
+    - zsh
+    - powerline
+    - fonts-powerline
+    - nextcloud-desktop
+    - nautilus-nextcloud
+    - caffeine
 
 2. This atom plugins:
     - atom-beautify
@@ -33,8 +45,6 @@ This playbook will install all the applications that i need for my work envirome
     - linter-ansible-syntax
     - linter-json-lint
     - linter-ui-default
-
-And a small version of cowsay that i use in my playbooks
 
 - [x] Working in Debian and Ubuntu
 - [ ] Working in CentOS and redhat
