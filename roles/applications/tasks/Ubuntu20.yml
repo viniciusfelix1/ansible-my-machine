@@ -6,6 +6,7 @@
   loop:
     - https://download.docker.com/linux/ubuntu/gpg
     - https://packagecloud.io/AtomEditor/atom/gpgkey
+    - https://apt.releases.hashicorp.com/gpg
 
 - name: add repository
   apt_repository:
@@ -13,9 +14,9 @@
     state: present
   loop:
     - "ppa:ansible/ansible"
-    - "ppa:libratbag-piper/piper-libratbag-git"
     - "ppa:linuxuprising/shutter"
     - "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
+    - "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
 - name: update apt cache
   apt:
@@ -36,9 +37,7 @@
     - ansible
     - python3-pip
     - terminator
-    - gnome-keyring
     - hunspell-pt-br
-    - piper
     - gcc
     - shutter
     - zsh
@@ -47,6 +46,7 @@
     - nextcloud-desktop
     - nautilus-nextcloud
     - caffeine
+    - vagrant
 
 - name: Download DEB packages
   get_url:
@@ -54,8 +54,7 @@
     dest: "{{ item.dest }}"
   loop:
     - { url: 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb', dest: '/opt/' }
-    - { url: 'https://download.virtualbox.org/virtualbox/6.1.8/virtualbox-6.1_6.1.8-137981~Ubuntu~eoan_amd64.deb', dest: '/opt/'}
-    - { url: 'https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb', dest: '/opt/'}
+    - { url: 'https://download.virtualbox.org/virtualbox/6.1.22/virtualbox-6.1_6.1.22-144080~Ubuntu~eoan_amd64.deb', dest: '/opt/virtualbox.deb'}
     - { url: 'https://github.com/ksnip/ksnip/releases/download/v1.8.1/ksnip-1.8.1.deb', dest: '/opt/ksnip.deb' }
 
 - name: Install a .deb package
@@ -63,8 +62,7 @@
     deb: /opt/{{ item }}
   loop:
     - google-chrome-stable_current_amd64.deb
-    - virtualbox-6.1_6.1.8-137981~Ubuntu~eoan_amd64.deb
-    - vagrant_2.2.9_x86_64.deb
+    - virtualbox.deb
     - ksnip.deb
 
 - name: install pip modules
@@ -76,3 +74,8 @@
     - boto3
     - botocore
       #- ovirt-engine-sdk-python
+
+- name: Setting shell to user
+  user:
+    name: vinicius
+    shell: /usr/bin/zsh
