@@ -48,7 +48,7 @@
     - caffeine
     - vagrant
 
-- name: Download DEB packages
+- name: Download files
   get_url:
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
@@ -56,6 +56,23 @@
     - { url: 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb', dest: '/opt/' }
     - { url: 'https://download.virtualbox.org/virtualbox/6.1.22/virtualbox-6.1_6.1.22-144080~Ubuntu~eoan_amd64.deb', dest: '/opt/virtualbox.deb'}
     - { url: 'https://github.com/ksnip/ksnip/releases/download/v1.8.1/ksnip-1.8.1.deb', dest: '/opt/ksnip.deb' }
+    - { url: 'https://get.helm.sh/helm-v3.6.0-rc.1-linux-amd64.tar.gz', dest: '/opt/helm.tar.gz' }
+    - { url: 'https://dl.k8s.io/release/v1.20.0/bin/linux/amd64/kubectl', dest: '/opt/kubectl'}
+    - { url: 'https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64', dest: '/opt/minikube'}
+
+- name: Copy kube binaries
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: /usr/local/bin/
+    mode: '0755'
+  loop:
+    - { src: '/opt/kubectl' }
+    - { src: '/opt/minikube' }
+
+- name: Extract helm binary
+  ansible.builtin.unarchive:
+    src: /opt/helm.tar.gz
+    dest: /usr/local/bin/
 
 - name: Install a .deb package
   apt:
