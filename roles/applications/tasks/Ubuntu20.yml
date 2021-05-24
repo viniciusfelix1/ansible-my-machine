@@ -16,7 +16,7 @@
     - "ppa:ansible/ansible"
     - "ppa:linuxuprising/shutter"
     - "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
-    - "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    - "deb [arch=amd64] https://apt.releases.hashicorp.com focal main"
 
 - name: update apt cache
   apt:

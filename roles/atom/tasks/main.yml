@@ -2,7 +2,6 @@
   shell: "apm install {{ item }}"
   loop:
     - atom-beautify
-    - atom-marp
     - busy-signal
     - file-icons
     - git-plus
